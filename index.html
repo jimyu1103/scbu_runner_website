@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>距離紀錄表單</title>
+</head>
+<body>
+  <h2>請輸入跑步距離</h2>
+  <form id="distanceForm">
+    <label for="user">使用者名稱：</label>
+    <select id="user">
+      <option value="Annie">Annie</option>
+      <option value="Jill">Jill</option>
+      <option value="Serena">Serena</option>
+      <option value="Dale">Dale</option>
+      <option value="Joe">Joe</option>
+      <option value="Jim">Jim</option>
+      <option value="Ted">Ted</option>
+    </select><br><br>
+
+    <label for="distance">距離（公里）：</label>
+    <input type="number" id="distance" required step="0.1"><br><br>
+
+    <button type="submit">送出</button>
+  </form>
+
+  <script>
+    document.getElementById("distanceForm").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const user = document.getElementById("user").value;
+      const distance = document.getElementById("distance").value;
+                           
+      const url = "https://script.google.com/macros/s/AKfycby9o5F6KtngdICCN04BGqZZfsnjg3D2NcQsOLVIJ_rA7rwv8bf0Wfzn5DSVGLZokCS_/exec";  // <--- 貼上上面拿到的網址
+
+      await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user, distance: parseFloat(distance) })
+      });
+
+      alert("資料已送出！");
+      document.getElementById("distanceForm").reset();
+    });
+  </script>
+</body>
+</html>
